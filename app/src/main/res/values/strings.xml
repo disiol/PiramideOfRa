@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">2048</string>
+    <string name="you_win">You Win</string>
+    <string name="lives">lives: </string>
+    <string name="points">points: </string>
+    <string name="new_game">New Game</string>
+    <string name="exit">Exit</string>
+</resources>
