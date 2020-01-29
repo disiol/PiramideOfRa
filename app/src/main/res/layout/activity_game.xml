@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"
-        tools:context=".GameActivity">
+        tools:context=".piramideofra.GameActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="716dp" />
+            app:layout_constraintGuide_begin="559dp" />
 
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/bord_GridLayout"
@@ -83,7 +83,6 @@
             android:fontFamily="@font/font_rockletter_transparent"
             android:text="@string/exit"
             android:textAllCaps="true"
-            android:textColor="@color/ColorWhite"
             android:textSize="@dimen/textSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
