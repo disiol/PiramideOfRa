@@ -1,4 +1,4 @@
-package com.piramideofra.aprw.piramideofra;
+package com.piramideofra.aprw;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package com.piramideofra.aprw.piramideofra;
+package com.piramideofra.aprw;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -13,12 +13,11 @@ import android.widget.ImageView;
 import org.jetbrains.annotations.NotNull;
 
 
-import com.piramideofra.aprw.R;
 import com.piramideofra.aprw.databinding.ActivityGameBinding;
 
 import java.util.ArrayList;
 
-import static com.piramideofra.aprw.piramideofra.Constants.MYLOG_TEG;
+import static com.piramideofra.aprw.Constants.MYLOG_TEG;
 
 public class GameActivity extends AppCompatActivity {
     ActivityGameBinding activityGameBinding;

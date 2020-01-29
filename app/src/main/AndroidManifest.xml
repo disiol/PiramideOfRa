@@ -7,9 +7,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name="com.piramideofra.aprw.piramideofra.App"
+        android:name="com.piramideofra.aprw.App"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.piramideofra.aprw.piramideofra.GameActivity"
+        <activity android:name="com.piramideofra.aprw.GameActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.piramideofra.aprw.piramideofra;
+package com.piramideofra.aprw;
 
 public class Constants {
     public static final String MYLOG_TEG = "my log";
