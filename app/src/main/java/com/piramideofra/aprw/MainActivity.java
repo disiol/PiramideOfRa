@@ -9,11 +9,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 
+import com.facebook.applinks.AppLinkData;
 import com.piramideofra.aprw.manedger.PreferencesManagerImpl;
 
 import java.io.BufferedReader;
@@ -25,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
+import static com.piramideofra.aprw.Constants.DEPLINK;
 import static com.piramideofra.aprw.Constants.MYLOG_TEG;
 import static com.piramideofra.aprw.Constants.URL;
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean settingsBoolean;
     private String uri;
     private DownloadTask task;
+    private CountDownTimer countDownTimer;
 
 
     @Override
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 //                showWeb();
 //            }
 
+            getDeplink();
             getUrl();
 
             // record the fact that the app has been started at least once
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             if (forRanWeb) {
-                showWeb();
+                waitToshow();
             } else if (forRanGame) {
                 showGame();
 
@@ -89,6 +94,55 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void getDeplink() {
+        try {
+
+
+            AppLinkData.fetchDeferredAppLinkData(this, appLinkData -> {
+                AppLinkData appLinkData1 = appLinkData;
+                if (appLinkData1 == null || appLinkData1.getTargetUri() == null) {
+                    Log.e("MyLog", "deeplink = null");
+                    preferencesManager.setURL(URL);
+                    preferencesManager.setSateStartSte(true);
+
+                } else {
+
+                    String url = appLinkData1.getTargetUri().toString();
+                    if (BuildConfig.DEBUG) {
+                        Log.d("MyLog", "deeplink = " + url);
+
+                    }
+                    String string = convertArrayToStringMethod(url.split(DEPLINK));
+
+                    if (BuildConfig.DEBUG) {
+
+                    }
+
+                    preferencesManager.setSateStartSte(true);
+                    //TODO
+                }
+            });
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        waitToshow();
+    }
+
+    private void waitToshow() {
+        countDownTimer = new CountDownTimer(3000, 1) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                showWeb();
+            }
+        }.start();
     }
 
     private void showGame() {
@@ -222,6 +276,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public static String convertArrayToStringMethod(String[] strArray) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < strArray.length; i++) {
+
+            stringBuilder.append(strArray[i]);
+
+        }
+
+        return stringBuilder.toString();
+
     }
 }
 
