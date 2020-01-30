@@ -181,9 +181,6 @@ public class MainActivity extends AppCompatActivity {
             builder.setCloseButtonIcon(backButton);
 
             CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            customTabsIntent.intent.setData(Uri.parse(uri));
 
             boolean chromeInstalled = false;
             for (ApplicationInfo applicationInfo : getPackageManager().getInstalledApplications(0)) {
@@ -196,7 +193,8 @@ public class MainActivity extends AppCompatActivity {
                 customTabsIntent.intent.setPackage("com.android.chrome");
             }
             //  customTabsIntent.launchUrl(this, Uri.parse(uri));
-            startActivity(customTabsIntent.intent);
+            customTabsIntent.launchUrl(this, Uri.parse(uri));
+            finish();
 
             Log.e("my Log" + getLocalClassName(), "showSite customTabsIntent.intent.getAction() : " + customTabsIntent.intent.getAction());
 
@@ -314,6 +312,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
     }
 }
 
