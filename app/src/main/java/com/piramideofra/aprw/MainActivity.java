@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean settingsBoolean;
     private String uri;
     private DownloadTask task;
-    private CountDownTimer countDownTimer;
+    private CountDownTimer waitToshow;
 
 
 
@@ -52,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
         forRanWeb = preferencesManager.getSateStartSte();
         forRanGame = preferencesManager.getGameStart();
+
+        waitToshow = new CountDownTimer(3000, 1) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                showWeb();
+            }
+        };
 
         settingsBoolean = preferencesManager.getMyFirstTime();
         if (settingsBoolean) {
@@ -86,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             if (forRanWeb) {
-                waitToshow();
+                waitToshow.start();
             } else if (forRanGame) {
                 showGame();
 
@@ -135,18 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void waitToshow() {
-        countDownTimer = new CountDownTimer(3000, 1) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
 
-            @Override
-            public void onFinish() {
-                showWeb();
-            }
-        }.start();
-    }
+
+
 
     private void showGame() {
         Intent intent = new Intent(this, GameActivity.class);
@@ -167,8 +169,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("my Log" + getLocalClassName(), "uri: " + uri);
                 }
             }
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
 
             final Bitmap backButton = BitmapFactory.decodeResource(getResources(), R.drawable.round_done_black_24dp);
@@ -225,8 +225,11 @@ public class MainActivity extends AppCompatActivity {
 
                     stringBuilder.toString();
                     Log.d(MYLOG_TEG, "stringBuilder " + stringBuilder.toString());
+                    preferencesManager.setSateStartSte(true);
+                    preferencesManager.setGameStart(false);
+
                     preferencesManager.setURL(String.valueOf(stringBuilder));
-                    waitToshow();
+                    waitToshow.start();
 
                 } else if (string != null && string != "") {
                     Log.d(MYLOG_TEG, "stringBuilder  no " + stringBuilder.toString());
@@ -235,7 +238,8 @@ public class MainActivity extends AppCompatActivity {
 
                     preferencesManager.setSateStartSte(true);
                     preferencesManager.setGameStart(false);
-                    waitToshow();
+
+                    waitToshow.start();
                 } else {
                     preferencesManager.setSateStartSte(false);
                     preferencesManager.setGameStart(true);
@@ -245,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             } else if (string == "") {
+                preferencesManager.setSateStartSte(false);
+                preferencesManager.setGameStart(true);
                 showGame();
 
             }
