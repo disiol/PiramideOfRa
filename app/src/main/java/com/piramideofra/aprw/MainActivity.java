@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         if (settingsBoolean) {
             //the app is being launched for first time, do something
             Log.e(MYLOG_TEG, "First time");
+            preferencesManager.setURL(null);
 
             // first time task
             String installer = getPackageManager().getInstallerPackageName(
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 
             getDeplink();
-            getUrl();
 
             // record the fact that the app has been started at least once
             preferencesManager.setMyFirstTime(false);
@@ -104,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 AppLinkData appLinkData1 = appLinkData;
                 if (appLinkData1 == null || appLinkData1.getTargetUri() == null) {
                     Log.e("MyLog", "deeplink = null");
-                    preferencesManager.setURL(URL);
                     preferencesManager.setSateStartSte(true);
+                    getUrl();
 
                 } else {
 
@@ -115,12 +116,15 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     String string = convertArrayToStringMethod(url.split(DEPLINK));
-
                     if (BuildConfig.DEBUG) {
+                        Log.d("MyLog", "deeplink string = " + string);
 
                     }
-
+                    preferencesManager.setURL(string);
                     preferencesManager.setSateStartSte(true);
+
+                    getUrl();
+
                     //TODO
                 }
             });
@@ -129,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        waitToshow();
     }
 
     private void waitToshow() {
@@ -154,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showWeb() {
+
         try {
             String preferencesManagerURL = preferencesManager.getURL();
             if (preferencesManagerURL != null) {
@@ -163,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("my Log" + getLocalClassName(), "uri: " + uri);
                 }
             }
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
 
             final Bitmap backButton = BitmapFactory.decodeResource(getResources(), R.drawable.round_done_black_24dp);
@@ -174,8 +180,10 @@ public class MainActivity extends AppCompatActivity {
             builder.addDefaultShareMenuItem();
             builder.setCloseButtonIcon(backButton);
 
-
             CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            customTabsIntent.intent.setData(Uri.parse(uri));
 
             boolean chromeInstalled = false;
             for (ApplicationInfo applicationInfo : getPackageManager().getInstalledApplications(0)) {
@@ -187,7 +195,11 @@ public class MainActivity extends AppCompatActivity {
             if (chromeInstalled) {
                 customTabsIntent.intent.setPackage("com.android.chrome");
             }
-            customTabsIntent.launchUrl(this, Uri.parse(uri));
+            //  customTabsIntent.launchUrl(this, Uri.parse(uri));
+            startActivity(customTabsIntent.intent);
+
+            Log.e("my Log" + getLocalClassName(), "showSite customTabsIntent.intent.getAction() : " + customTabsIntent.intent.getAction());
+
         } catch (Resources.NotFoundException e) {
 
             if (BuildConfig.DEBUG) {
@@ -215,8 +227,9 @@ public class MainActivity extends AppCompatActivity {
 
                     stringBuilder.toString();
                     Log.d(MYLOG_TEG, "stringBuilder " + stringBuilder.toString());
-                    showWeb();
-                    preferencesManager.setURL(String.valueOf(stringBuilder)); //TODO
+                    preferencesManager.setURL(String.valueOf(stringBuilder));
+                    waitToshow();
+
                 } else if (string != null && string != "") {
                     Log.d(MYLOG_TEG, "stringBuilder  no " + stringBuilder.toString());
                     Log.d(MYLOG_TEG, "sstring " + string);
@@ -224,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
                     preferencesManager.setSateStartSte(true);
                     preferencesManager.setGameStart(false);
-                    showWeb();
+                    waitToshow();
                 } else {
                     preferencesManager.setSateStartSte(false);
                     preferencesManager.setGameStart(true);
@@ -290,6 +303,17 @@ public class MainActivity extends AppCompatActivity {
 
         return stringBuilder.toString();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
 
