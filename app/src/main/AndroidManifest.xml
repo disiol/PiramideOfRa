@@ -33,10 +33,6 @@
                     android:scheme="pls" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.piramideofra.aprw.GameActivity"
-            android:screenOrientation="portrait">
-        </activity>
 
 
     </application>

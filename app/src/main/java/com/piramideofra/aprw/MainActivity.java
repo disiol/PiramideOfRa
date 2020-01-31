@@ -17,6 +17,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 
 import com.facebook.applinks.AppLinkData;
 import com.piramideofra.aprw.manedger.PreferencesManagerImpl;
+import com.piramideofra.aprw.manedger.game.GameActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
