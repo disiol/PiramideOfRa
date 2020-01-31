@@ -58,7 +58,7 @@ public class MatrixView extends TableLayout implements Swiper {
     public MatrixView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.activity_main, this);
+        View v = inflater.inflate(R.layout.matrix, this);
 
         // Initialize all buttons
         tiles = new Button[N][N];

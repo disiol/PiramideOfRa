@@ -33,6 +33,12 @@
                     android:scheme="pls" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".manedger.game.GameActivity"
+            android:screenOrientation="portrait">
+
+
+        </activity>
 
 
     </application>

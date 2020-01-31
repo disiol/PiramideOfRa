@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/onColor"
         android:orientation="vertical">
 
         <TextView
@@ -16,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/font_rockletter_simple"
+            android:fontFamily="@font/font_rockletter_transparent"
             android:paddingTop="5dp"
             android:text="SCORE"
             android:textSize="12sp"
@@ -27,12 +26,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/font_rockletter_simple"
+            android:fontFamily="@font/font_rockletter_transparent"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="1023"
             android:textSize="20sp"
-
             android:textStyle="bold" />
 
 

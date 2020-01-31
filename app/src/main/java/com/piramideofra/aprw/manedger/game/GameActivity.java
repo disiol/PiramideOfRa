@@ -43,9 +43,10 @@ public class GameActivity extends Activity implements View.OnTouchListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.main);
 
 
+        textViewLucky = (TextView) findViewById(R.id.main_textview_lucky);
         slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.all_the_way_up);
         slideUpAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -64,26 +65,31 @@ public class GameActivity extends Activity implements View.OnTouchListener {
             }
         });
 
+        textViewGameTitle = (TextView) findViewById(R.id.main_textview_game_title);
         textViewGameTitle.setText(Html.fromHtml(getString(R.string.app_name)));
 
-        currentScore = findViewById(R.id.main_scoreboxview_current);
-        bestScore = findViewById(R.id.main_scoreboxview_best);
-        matrixView = findViewById(R.id.main_matrixview);
-        matrixView.setMoveListener((score, gameOver, newSquare) -> {
-            if (gameOver) {
-                displayGameOverDialog();
-            } else {
-                if (!newSquare) {
-
-                }
-                if (score > 0) {
-                    currentScore.addScore(score);
-                    if (currentScore.getScore() > bestScore.getScore()) {
-                        bestScore.setScore(currentScore.getScore());
-                        GamePreferences.saveBestScore(bestScore.getScore());
+        currentScore = (ScoreBoxView) findViewById(R.id.main_scoreboxview_current);
+        bestScore = (ScoreBoxView) findViewById(R.id.main_scoreboxview_best);
+        matrixView = (MatrixView) findViewById(R.id.main_matrixview);
+        matrixView.setMoveListener(new MoveListener() {
+            @Override
+            public void onMove(int score, boolean gameOver, boolean newSquare) {
+                if (gameOver) {
+                    displayGameOverDialog();
+                } else {
+                    if (!newSquare) {
+                        textViewLucky.setVisibility(View.VISIBLE);
+                        textViewLucky.startAnimation(slideUpAnimation);
                     }
-                    if (score >= 2048) {
-                        displayCongratsDialog();
+                    if (score > 0) {
+                        currentScore.addScore(score);
+                        if (currentScore.getScore() > bestScore.getScore()) {
+                            bestScore.setScore(currentScore.getScore());
+                            GamePreferences.saveBestScore(bestScore.getScore());
+                        }
+                        if (score >= 2048) {
+                            displayCongratsDialog();
+                        }
                     }
                 }
             }
