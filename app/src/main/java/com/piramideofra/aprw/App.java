@@ -2,6 +2,7 @@ package com.piramideofra.aprw;
 
 import android.app.Application;
 
+import com.onesignal.OneSignal;
 import com.piramideofra.aprw.manedger.game.GamePreferences;
 
 public class App extends Application {
@@ -11,10 +12,10 @@ public class App extends Application {
         super.onCreate();
         // OneSignal Initialization
 
-//        OneSignal.startInit(this)
-//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-//                .unsubscribeWhenNotificationsAreDisabled(true)
-//                .init();
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
 
         GamePreferences.initialize(this);
 
