@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
 //            } else {
 //                preferencesManager.setGameStart(false);
 //                preferencesManager.setSateStartSte(true);
-//                preferencesManager.setURL(URL);
-//                showWeb();
+//                getDeplink();
 //            }
 
             getDeplink();
