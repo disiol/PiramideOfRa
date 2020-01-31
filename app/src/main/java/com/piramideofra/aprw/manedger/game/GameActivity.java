@@ -132,11 +132,12 @@ public class GameActivity extends Activity implements View.OnTouchListener {
     }
 
     private void displayGameOverDialog() {
-        final GameDialog d = new GameDialog(this, "Oops, you lost! Try again now?", "Cancel", "New Game");
+        final GameDialog d = new GameDialog(this, "Oops, you lost! Try again now?", "Exit", "New Game");
         d.setOnGameDialogClickListener(new OnGameDialogClickListener() {
             @Override
             public void onLeftClick() {
                 d.dismiss();
+                finish();
 
             }
 
@@ -162,6 +163,7 @@ public class GameActivity extends Activity implements View.OnTouchListener {
             @Override
             public void onRightClick() {
                 d.dismiss();
+
             }
         });
         d.show();

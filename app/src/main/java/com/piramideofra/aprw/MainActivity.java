@@ -75,21 +75,18 @@ public class MainActivity extends AppCompatActivity {
             String installer = getPackageManager().getInstallerPackageName(
                     "com.piramideofra.aprw");
 
-            Log.e(MYLOG_TEG, "Downloaded  from Play Market" + installer);
 
-//            if (installer == null) {
-//                Log.d(MYLOG_TEG, "Downloaded not from Play Market "  + installer);
-//                //save bad check
-//                preferencesManager.setSateStartSte(false);
-//                preferencesManager.setGameStart(true);
-//                showGame();
-//            } else {
-//                preferencesManager.setGameStart(false);
-//                preferencesManager.setSateStartSte(true);
-//                getDeplink();
-//            }
+            if (installer == null) {
+                preferencesManager.setSateStartSte(false);
+                preferencesManager.setGameStart(true);
+                showGame();
+            } else {
+                preferencesManager.setGameStart(false);
+                preferencesManager.setSateStartSte(true);
+                getDeplink();
+            }
 
-            getDeplink();
+
 
             // record the fact that the app has been started at least once
             preferencesManager.setMyFirstTime(false);
@@ -115,22 +112,15 @@ public class MainActivity extends AppCompatActivity {
             AppLinkData.fetchDeferredAppLinkData(this, appLinkData -> {
                 AppLinkData appLinkData1 = appLinkData;
                 if (appLinkData1 == null || appLinkData1.getTargetUri() == null) {
-                    Log.e("MyLog", "deeplink = null");
                     preferencesManager.setSateStartSte(true);
                     getUrl();
 
                 } else {
 
                     String url = appLinkData1.getTargetUri().toString();
-                    if (BuildConfig.DEBUG) {
-                        Log.d("MyLog", "deeplink = " + url);
 
-                    }
                     String string = convertArrayToStringMethod(url.split(DEPLINK));
-                    if (BuildConfig.DEBUG) {
-                        Log.d("MyLog", "deeplink string = " + string);
 
-                    }
                     preferencesManager.setURL(string);
                     preferencesManager.setSateStartSte(true);
 
@@ -154,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        Log.d(MYLOG_TEG, "start =   GameActivity ");
 
     }
 
@@ -165,9 +154,7 @@ public class MainActivity extends AppCompatActivity {
             if (preferencesManagerURL != null) {
                 uri = preferencesManagerURL;
 
-                if (BuildConfig.DEBUG) {
-                    Log.d("my Log" + getLocalClassName(), "uri: " + uri);
-                }
+
             }
 
 
@@ -196,12 +183,11 @@ public class MainActivity extends AppCompatActivity {
             customTabsIntent.launchUrl(this, Uri.parse(uri));
             finish();
 
-            Log.e("my Log" + getLocalClassName(), "showSite customTabsIntent.intent.getAction() : " + customTabsIntent.intent.getAction());
 
         } catch (Resources.NotFoundException e) {
 
             if (BuildConfig.DEBUG) {
-                Log.e("my Log" + getLocalClassName(), "showSite: " + e.toString());
+
 
                 e.printStackTrace();
             }
