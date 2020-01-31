@@ -10,7 +10,8 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
+import android.widget.
+        ImageView;
 import android.widget.TableLayout;
 
 import com.piramideofra.aprw.R;
@@ -31,7 +32,8 @@ public class MatrixView extends TableLayout implements Swiper {
 
     private VelocityTracker velocityTracker;
 
-    private Button[][] tiles;
+    private
+    ImageView[][] tiles;
 
     private Animation leftAnimation;
 
@@ -60,27 +62,60 @@ public class MatrixView extends TableLayout implements Swiper {
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.matrix, this);
 
-        // Initialize all buttons
-        tiles = new Button[N][N];
-        tiles[0][0] = (Button) v.findViewById(R.id.button00);
-        tiles[0][1] = (Button) v.findViewById(R.id.button01);
-        tiles[0][2] = (Button) v.findViewById(R.id.button02);
-        tiles[0][3] = (Button) v.findViewById(R.id.button03);
+        // Initialize all 
 
-        tiles[1][0] = (Button) v.findViewById(R.id.button10);
-        tiles[1][1] = (Button) v.findViewById(R.id.button11);
-        tiles[1][2] = (Button) v.findViewById(R.id.button12);
-        tiles[1][3] = (Button) v.findViewById(R.id.button13);
+        tiles = new ImageView[N][N];
+        tiles[0][0] = (
+                ImageView) v.findViewById(R.id.
+                ImageView00);
+        tiles[0][1] = (
+                ImageView) v.findViewById(R.id.
+                ImageView01);
+        tiles[0][2] = (
+                ImageView) v.findViewById(R.id.
+                ImageView02);
+        tiles[0][3] = (
+                ImageView) v.findViewById(R.id.
+                ImageView03);
 
-        tiles[2][0] = (Button) v.findViewById(R.id.button20);
-        tiles[2][1] = (Button) v.findViewById(R.id.button21);
-        tiles[2][2] = (Button) v.findViewById(R.id.button22);
-        tiles[2][3] = (Button) v.findViewById(R.id.button23);
+        tiles[1][0] = (
+                ImageView) v.findViewById(R.id.
+                ImageView10);
+        tiles[1][1] = (
+                ImageView) v.findViewById(R.id.
+                ImageView11);
+        tiles[1][2] = (
+                ImageView) v.findViewById(R.id.
+                ImageView12);
+        tiles[1][3] = (
+                ImageView) v.findViewById(R.id.
+                ImageView13);
 
-        tiles[3][0] = (Button) v.findViewById(R.id.button30);
-        tiles[3][1] = (Button) v.findViewById(R.id.button31);
-        tiles[3][2] = (Button) v.findViewById(R.id.button32);
-        tiles[3][3] = (Button) v.findViewById(R.id.button33);
+        tiles[2][0] = (
+                ImageView) v.findViewById(R.id.
+                ImageView20);
+        tiles[2][1] = (
+                ImageView) v.findViewById(R.id.
+                ImageView21);
+        tiles[2][2] = (
+                ImageView) v.findViewById(R.id.
+                ImageView22);
+        tiles[2][3] = (
+                ImageView) v.findViewById(R.id.
+                ImageView23);
+
+        tiles[3][0] = (
+                ImageView) v.findViewById(R.id.
+                ImageView30);
+        tiles[3][1] = (
+                ImageView) v.findViewById(R.id.
+                ImageView31);
+        tiles[3][2] = (
+                ImageView) v.findViewById(R.id.
+                ImageView32);
+        tiles[3][3] = (
+                ImageView) v.findViewById(R.id.
+                ImageView33);
 
         leftAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_left);
         rightAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_right);
@@ -105,9 +140,6 @@ public class MatrixView extends TableLayout implements Swiper {
         moveListener = listener;
     }
 
-    public boolean hasMoreMove() {
-        return moreMove;
-    }
 
     private void displayMatrix(Matrix m, Direction dir) {
         final int n = Matrix.N;
@@ -116,11 +148,11 @@ public class MatrixView extends TableLayout implements Swiper {
             for (int c = 0; c < n; ++c) {
                 number = m.getSpot(r, c);
                 if (number == Matrix.EMPTY) {
-                    tiles[r][c].setText("");
+                    tiles[r][c].setContentDescription("");
                 } else {
-                    tiles[r][c].setText(Integer.toString(number));
+                    tiles[r][c].setContentDescription(Integer.toString(number));
                 }
-                tiles[r][c].setBackground(getResources().getDrawable(getDrawableId(number)));
+                tiles[r][c].setImageDrawable(getResources().getDrawable(getDrawableId(number)));
 
                 if (matrix.isMergeSpot(r, c)) {
                     tiles[r][c].startAnimation(appearingAnimation);
@@ -173,19 +205,29 @@ public class MatrixView extends TableLayout implements Swiper {
         moveListener.onMove(score, gameOver, newSquare);
     }
 
-    private void applyEffect(Button button, Direction dir) {
+    private void applyEffect(
+            ImageView
+                    ImageView, Direction dir) {
         if (dir == Direction.DOWN) {
-            button.startAnimation(downAnimation);
-            button.invalidate();
+
+            ImageView.startAnimation(downAnimation);
+
+            ImageView.invalidate();
         } else if (dir == Direction.UP) {
-            button.startAnimation(upAnimation);
-            button.invalidate();
+
+            ImageView.startAnimation(upAnimation);
+
+            ImageView.invalidate();
         } else if (dir == Direction.LEFT) {
-            button.startAnimation(leftAnimation);
-            button.invalidate();
+
+            ImageView.startAnimation(leftAnimation);
+
+            ImageView.invalidate();
         } else if (dir == Direction.RIGHT) {
-            button.startAnimation(rightAnimation);
-            button.invalidate();
+
+            ImageView.startAnimation(rightAnimation);
+
+            ImageView.invalidate();
         }
     }
 

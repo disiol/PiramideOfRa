@@ -2,6 +2,8 @@ package com.piramideofra.aprw;
 
 import android.app.Application;
 
+import com.piramideofra.aprw.manedger.game.GamePreferences;
+
 public class App extends Application {
 
     @Override
@@ -13,5 +15,8 @@ public class App extends Application {
 //                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
 //                .unsubscribeWhenNotificationsAreDisabled(true)
 //                .init();
+
+        GamePreferences.initialize(this);
+
     }
 }

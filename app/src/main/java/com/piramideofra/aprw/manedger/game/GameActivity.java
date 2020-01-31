@@ -28,7 +28,6 @@ public class GameActivity extends Activity implements View.OnTouchListener {
 
     private LinearLayout linearLayoutOutermost;
 
-    private TextView textViewGameTitle;
 
     private Animation slideUpAnimation;
 
@@ -65,8 +64,6 @@ public class GameActivity extends Activity implements View.OnTouchListener {
             }
         });
 
-        textViewGameTitle = (TextView) findViewById(R.id.main_textview_game_title);
-        textViewGameTitle.setText(Html.fromHtml(getString(R.string.app_name)));
 
         currentScore = (ScoreBoxView) findViewById(R.id.main_scoreboxview_current);
         bestScore = (ScoreBoxView) findViewById(R.id.main_scoreboxview_best);
