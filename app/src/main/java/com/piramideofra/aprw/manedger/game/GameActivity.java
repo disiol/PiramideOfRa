@@ -42,7 +42,7 @@ public class GameActivity extends Activity implements View.OnTouchListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_game);
 
 
         textViewLucky = (TextView) findViewById(R.id.main_textview_lucky);
@@ -137,7 +137,9 @@ public class GameActivity extends Activity implements View.OnTouchListener {
             @Override
             public void onLeftClick() {
                 d.dismiss();
+
             }
+
 
             @Override
             public void onRightClick() {

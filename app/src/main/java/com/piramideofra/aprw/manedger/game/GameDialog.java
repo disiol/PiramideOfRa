@@ -21,22 +21,16 @@ public class GameDialog extends Dialog {
         tv.setText(msg);
         Button left = (Button) v.findViewById(R.id.game_dialog_button_left);
         left.setText(leftMsg);
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onLeftClick();
-                }
+        left.setOnClickListener(v12 -> {
+            if (listener != null) {
+                listener.onLeftClick();
             }
         });
         Button right = (Button) v.findViewById(R.id.game_dialog_button_right);
         right.setText(rightMsg);
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onRightClick();
-                }
+        right.setOnClickListener(v1 -> {
+            if (listener != null) {
+                listener.onRightClick();
             }
         });
         setCancelable(false);
